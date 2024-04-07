@@ -1,0 +1,149 @@
+
+#wave-container {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	transform: rotate(180deg);
+}
+
+.wave {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0) 50%, #ffffff 50%);
+	background-size: 50px 50px;
+	position: absolute;
+    left: 0;
+    width: 1%;
+	height: 1px;
+	background-repeat: repeat no-repeat;
+	background-position: 0 bottom;
+	transform-origin: center bottom;
+	opacity: 0.5;
+	animation: waveAnimation 30s linear infinite;
+}
+
+.wave:nth-child(1) {
+	bottom: 0;
+}
+
+.wave:nth-child(2) {
+	bottom: 10px;
+	animation-delay: -15s;
+}
+
+@keyframes waveAnimation {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+#bubble-container {
+	position: relative;
+    width: 85%;
+	height: 100%;
+	background: linear-gradient(0deg, #0077b6 0%, #0096c7 50%, #00b4d8 100%);
+	background-size: 400% 400%;
+	animation: WaterEffect 30s infinite;
+}
+
+@keyframes WaterEffect {
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+.bubble {
+	will-change: transform, opacity;
+	position: absolute;
+	bottom: -100px;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.6);
+	background: radial-gradient(
+		circle closest-side,
+		rgba(255, 255, 255, 0.6),
+		rgba(255, 255, 255, 0.3) 60%,
+		rgba(255, 255, 255, 0) 70%
+	);
+	box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+	opacity: 0.7;
+	animation: rise 10s infinite, sway 6s infinite;
+}
+
+@keyframes rise {
+	0% {
+		bottom: -100px;
+		transform: scale(0.5);
+		opacity: 0.7;
+	}
+
+	100% {
+		bottom: 100%;
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+@keyframes sway {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	50% {
+		transform: translateX(var(--sway-amplitude));
+	}
+}
+
+.bubble::before,
+.bubble::after {
+	content: "";
+	position: absolute;
+	border-radius: 50%;
+}
+
+.bubble::before {
+	top: 10%;
+	left: 10%;
+	right: 10%;
+	bottom: 10%;
+	background: inherit;
+}
+
+.bubble::after {
+	top: var(--reflect-pos);
+	left: var(--reflect-pos);
+	right: 20%;
+	bottom: 20%;
+	background: radial-gradient(
+		circle at 30% 30%,
+		rgba(255, 255, 255, 0.8),
+		rgba(255, 255, 255, 0) 70%
+	);
+	opacity: 0.6;
+	transform: scale(0.9);
+	animation: shimmer 5s infinite;
+}
+
+@keyframes shimmer {
+	0%,
+	100% {
+		transform: scale(0.9) translate(0, 0);
+	}
+
+	50% {
+		transform: scale(0.95) translate(-5%, -5%);
+	}
+}
+
+.bubble:hover {
+    animation: none;
+}

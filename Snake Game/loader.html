@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader</title>
+</head>
+<body>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4070f4;
+}
+
+h4{
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: -12rem;
+    text-shadow: 2px 2px 2px #4070f4;
+
+}
+
+.container,
+.overlay {
+  display: flex;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  position: relative;
+  height: 400px;
+  width: 300px;
+  border-radius: 16px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.container.active {
+  background-color: #000;
+}
+.container::before {
+  content: "";
+  position: absolute;
+  height: 650px;
+  width: 650px;
+  background-image: conic-gradient(transparent, transparent, transparent, #ff2257);
+}
+.container.active:before {
+  animation: rotate 4s linear infinite;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.container .overlay {
+  position: absolute;
+  height: 390px;
+  width: 290px;
+  font-size: 40px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 12px;
+  opacity: 0.9;
+background:url(https://refine.ams3.cdn.digitaloceanspaces.com/website/static/assets/landing-noise.webp),radial-gradient(100% 100% at 100% 0,#131221 0,rgba(29, 30, 48, 0.9));
+}
+    </style>
+
+    <div class="container active">
+        <span class="overlay" id="percent">0%</span>
+        <h4>Loading Mencari Data</h4>
+       </div>
+
+       <script>
+        const container = document.querySelector(".container"),
+        percent = document.querySelector("#percent");
+      let perVal = 0;
+      let increament = setInterval(() => {
+        perVal++;
+        percent.textContent = `${perVal}%`;
+        if (perVal == 100) {
+          clearInterval(increament);
+          container.classList.remove("active");
+        }
+      }, 100);
+
+
+      // Setelah 10 detik, halaman akan dialihkan ke halaman berikutnya
+setTimeout(function() {
+  window.location.href = "error.html"; // Ganti dengan URL halaman berikutnya
+}, 10000); // 10000 milidetik = 10 detik
+       </script>
+</body>
+</html>
